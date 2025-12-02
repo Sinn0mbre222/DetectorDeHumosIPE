@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">fireAlert</string>
+    <!-- Títulos -->
+    <string name="create_account">Crear Cuenta</string>
+    <string name="register">REGISTRARSE</string>
+
+    <!-- Campos -->
+    <string name="full_name">Nombre Completo</string>
+    <string name="enter_full_name">Ingresa tu nombre completo</string>
+
+    <string name="email">Correo Electrónico</string>
+    <string name="enter_email">ejemplo@correo.com</string>
+
+    <string name="password">Contraseña</string>
+    <string name="enter_password">Ingresa tu contraseña</string>
+
+    <string name="confirm_password">Confirmar Contraseña</string>
+    <string name="re_enter_password">Vuelve a ingresar tu contraseña</string>
+
+    <!-- Reglas y términos -->
+    <string name="password_rules">Mínimo 8 caracteres, con letras y números</string>
+    <string name="accept_terms">Acepto los Términos de Servicio y Política de Privacidad</string>
+
+    <!-- Accesibilidad -->
+    <string name="logo_desc">Logo de Smoke Alert - Detector de Humos</string>
+    <string name="toggle_password">Mostrar/Ocultar contraseña</string>
 </resources>
