@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Colors -->
+    <color name="primary">#FF6B35</color>
+    <color name="primary_dark">#FF4500</color>
+    <color name="primary_darker">#CC3700</color>
+
+    <!-- Background Colors -->
+    <color name="background_dark">#0D0D0D</color>
+    <color name="background_card">#1A1A1A</color>
+    <color name="background_input">#08FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#80FFFFFF</color>
+    <color name="text_hint">#4DFFFFFF</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_orange">#FF8C42</color>
+    <color name="accent_amber">#FFA62B</color>
+
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+
+    <!-- Social Colors -->
+    <color name="google_blue">#4285F4</color>
+    <color name="facebook_blue">#1877F2</color>
+
 </resources>
