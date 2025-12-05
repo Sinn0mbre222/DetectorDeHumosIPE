@@ -125,29 +125,43 @@ public class MainActivity extends AppCompatActivity {
         showLoading(true);
 
         // Simular delay de red
-        btnLogin.postDelayed(new Runnable() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View v) {
                 // Verificar credenciales
-                if (email.equals(TEST_USER) && password.equals(TEST_PASSWORD)) {
-                    // Login exitoso
-                    showLoading(false);
-                    Snackbar.make(v, "¡Bienvenido!", Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, HomePage.class);
 
+                if (email.equals(TEST_USER)) {
+                    if(password.equals(TEST_PASSWORD)){
+                        showLoading(false);
+                        Snackbar.make(v, "¡Bienvenido!" + TEST_USER, Snackbar.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }else{
+                        showLoading(false);
+                        Snackbar.make(v, "Contraseña incorrecta", Snackbar.LENGTH_LONG)
+                                .setAction("Reintentar", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        etPassword.setText("");
+                                        etPassword.requestFocus();
+                                    }
+                                })
+                                .show();
+                    }
                 } else {
                     showLoading(false);
-                    Snackbar.make(v, "Usuario o contraseña incorrectos", Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, "Usuario incorrecto", Snackbar.LENGTH_LONG)
                             .setAction("Reintentar", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    etPassword.setText("");
-                                    etPassword.requestFocus();
+                                    etEmail.setText("");
+                                    etEmail.requestFocus();
                                 }
                             })
                             .show();
                 }
             }
-        }, 1500); // 1.5 segundos de delay simulado
+        });
     }
 
     private void showLoading(boolean show) {

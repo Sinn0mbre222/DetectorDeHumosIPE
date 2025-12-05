@@ -26,4 +26,13 @@
     <!-- Accesibilidad -->
     <string name="logo_desc">Logo de Smoke Alert - Detector de Humos</string>
     <string name="toggle_password">Mostrar/Ocultar contraseña</string>
+
+    <!-- Activity Home @strings -->
+
+    <string name="textInicio">Inicio</string>
+
+        <!-- Texto bottom -->
+        <string name="textMapa">Mapa</string>
+        <string name="textAlertas">Alertas</string>
+        <string name="textPerfil">Perfil</string>
 </resources>
