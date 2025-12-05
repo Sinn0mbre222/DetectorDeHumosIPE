@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="app_name">FireAlert</string>
+
     <!-- Títulos -->
     <string name="create_account">Crear Cuenta</string>
     <string name="register">REGISTRARSE</string>
