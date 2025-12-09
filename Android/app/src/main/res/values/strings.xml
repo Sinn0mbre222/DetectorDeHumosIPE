@@ -31,8 +31,8 @@
 
     <string name="textInicio">Inicio</string>
 
-        <!-- Texto bottom -->
-        <string name="textMapa">Mapa</string>
-        <string name="textAlertas">Alertas</string>
-        <string name="textPerfil">Perfil</string>
+    <!-- Texto bottom -->
+    <string name="textDispositivos">Dispositivos</string>
+    <string name="textAlertas">Alertas</string>
+    <string name="textPerfil">Perfil</string>
 </resources>

@@ -124,62 +124,30 @@ public class MainActivity extends AppCompatActivity {
         // Mostrar loading
         showLoading(true);
 
-        //Login
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Verificar credenciales
-                Intent intent = new Intent(MainActivity.this, HomePage.class);
+        // Verificar credenciales
+        if (email.equals(TEST_USER) && password.equals(TEST_PASSWORD)) {
+            // Login exitoso
+            showLoading(false);
+            Snackbar.make(v, "¡Bienvenido " + TEST_USER + "!", Snackbar.LENGTH_SHORT).show();
 
-                if(email.equals(TEST_USER) && password.equals(TEST_PASSWORD)){
-                    showLoading(false);
-                    Snackbar.make(v, "¡Bienvenido!" + TEST_USER, Snackbar.LENGTH_SHORT).show();
-                    startActivity(intent);
-                }else{
-                    showLoading(false);
-                    Snackbar.make(v, "Usuario o contraseña incorrecto", Snackbar.LENGTH_LONG)
-                            .setAction("Reintentar", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    etEmail.setText("");
-                                    etEmail.requestFocus();
-                                    etPassword.setText("");
-                                }
-                            })
-                            .show();
-                }
+            // Navegar a HomePage
+            Intent intent = new Intent(MainActivity.this, HomePage.class);
+            startActivity(intent);
+            finish(); // Opcional: cierra MainActivity para que no vuelva atrás
 
-                /*if (email.equals(TEST_USER)) {
-                    if(password.equals(TEST_PASSWORD)){
-                        //showLoading(false);
-                        Snackbar.make(v, "¡Bienvenido!" + TEST_USER, Snackbar.LENGTH_SHORT).show();
-                        startActivity(intent);
-                    }else{
-                        //showLoading(false);
-                        Snackbar.make(v, "Contraseña incorrecta", Snackbar.LENGTH_LONG)
-                                .setAction("Reintentar", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        etPassword.setText("");
-                                        etPassword.requestFocus();
-                                    }
-                                })
-                                .show();
-                    }
-                } else {
-                    //showLoading(false);
-                    Snackbar.make(v, "Usuario incorrecto", Snackbar.LENGTH_LONG)
-                            .setAction("Reintentar", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    etEmail.setText("");
-                                    etEmail.requestFocus();
-                                }
-                            })
-                            .show();
-                }*/
-            }
-        });
+        } else {
+            // Credenciales incorrectas
+            showLoading(false);
+            Snackbar.make(v, "Usuario o contraseña incorrectos", Snackbar.LENGTH_LONG)
+                    .setAction("Reintentar", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            etPassword.setText("");
+                            etPassword.requestFocus();
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void showLoading(boolean show) {

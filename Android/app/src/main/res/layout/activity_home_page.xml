@@ -249,7 +249,7 @@
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ic_map"
+                                android:src="@drawable/ic_devices"
                                 app:tint="#FF6B35"
                                 tools:ignore="ContentDescription" />
                         </FrameLayout>
@@ -258,18 +258,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Ver Mapa"
+                            android:text="Ver dispositivos conectados"
                             android:textColor="@android:color/white"
                             android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Zonas de riesgo"
-                            android:textColor="#80FFFFFF"
-                            android:textSize="11sp" />
+                            android:textStyle="bold"
+                            android:gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -628,18 +621,21 @@
 
             <!-- Map -->
             <LinearLayout
-                android:id="@+id/navMap"
+                android:id="@+id/navDevices"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_map"
+                    android:src="@drawable/ic_devices"
                     app:tint="#80FFFFFF"
                     tools:ignore="ContentDescription" />
 
@@ -647,7 +643,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@string/textMapa"
+                    android:text="@string/textDispositivos"
                     android:textColor="#80FFFFFF"
                     android:textSize="11sp" />
             </LinearLayout>
