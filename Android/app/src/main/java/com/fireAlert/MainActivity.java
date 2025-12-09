@@ -124,20 +124,38 @@ public class MainActivity extends AppCompatActivity {
         // Mostrar loading
         showLoading(true);
 
-        // Simular delay de red
+        //Login
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Verificar credenciales
                 Intent intent = new Intent(MainActivity.this, HomePage.class);
 
-                if (email.equals(TEST_USER)) {
+                if(email.equals(TEST_USER) && password.equals(TEST_PASSWORD)){
+                    showLoading(false);
+                    Snackbar.make(v, "¡Bienvenido!" + TEST_USER, Snackbar.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }else{
+                    showLoading(false);
+                    Snackbar.make(v, "Usuario o contraseña incorrecto", Snackbar.LENGTH_LONG)
+                            .setAction("Reintentar", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    etEmail.setText("");
+                                    etEmail.requestFocus();
+                                    etPassword.setText("");
+                                }
+                            })
+                            .show();
+                }
+
+                /*if (email.equals(TEST_USER)) {
                     if(password.equals(TEST_PASSWORD)){
-                        showLoading(false);
+                        //showLoading(false);
                         Snackbar.make(v, "¡Bienvenido!" + TEST_USER, Snackbar.LENGTH_SHORT).show();
                         startActivity(intent);
                     }else{
-                        showLoading(false);
+                        //showLoading(false);
                         Snackbar.make(v, "Contraseña incorrecta", Snackbar.LENGTH_LONG)
                                 .setAction("Reintentar", new View.OnClickListener() {
                                     @Override
@@ -149,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                                 .show();
                     }
                 } else {
-                    showLoading(false);
+                    //showLoading(false);
                     Snackbar.make(v, "Usuario incorrecto", Snackbar.LENGTH_LONG)
                             .setAction("Reintentar", new View.OnClickListener() {
                                 @Override
@@ -159,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
-                }
+                }*/
             }
         });
     }
