@@ -48,5 +48,14 @@ public class Alerts extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mvPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Alerts.this, Profile.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

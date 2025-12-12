@@ -12,31 +12,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ConnectedDevices extends AppCompatActivity {
+public class Profile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connected_devices);
+        setContentView(R.layout.activity_profile);
 
-        LinearLayout navHome = findViewById(R.id.navHome);
+        LinearLayout navDevices = findViewById(R.id.navDevices);
         LinearLayout navAlert = findViewById(R.id.navAlerts);
-        LinearLayout navPerfil = findViewById(R.id.navProfile);
+        LinearLayout navHome = findViewById(R.id.navHome);
 
         FrameLayout btnBack = findViewById(R.id.btnBack);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ConnectedDevices.this, HomePage.class);
-                startActivity(intent);
-            }
-        });
-
-        navHome.setOnClickListener(new View.OnClickListener(){
+        navDevices.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(ConnectedDevices.this, HomePage.class);
+                Intent intent = new Intent(Profile.this, ConnectedDevices.class);
                 startActivity(intent);
             }
         });
@@ -44,19 +36,26 @@ public class ConnectedDevices extends AppCompatActivity {
         navAlert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(ConnectedDevices.this, Alerts.class);
+                Intent intent = new Intent(Profile.this, Alerts.class);
                 startActivity(intent);
             }
         });
 
-        navPerfil.setOnClickListener(new View.OnClickListener(){
+        navHome.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(ConnectedDevices.this, Profile.class);
+                Intent intent = new Intent(Profile.this, HomePage.class);
+                startActivity(intent);
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, HomePage.class);
                 startActivity(intent);
             }
         });
 
     }
-
 }

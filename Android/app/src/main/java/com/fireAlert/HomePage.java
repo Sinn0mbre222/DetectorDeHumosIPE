@@ -20,6 +20,9 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         LinearLayout navDevices = findViewById(R.id.navDevices);
+        LinearLayout navAlert = findViewById(R.id.navAlerts);
+        LinearLayout navPerfil = findViewById(R.id.navProfile);
+
         FrameLayout btnAlerts = findViewById(R.id.btnAlerts);
 
         navDevices.setOnClickListener(new View.OnClickListener(){
@@ -30,10 +33,27 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        navAlert.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(HomePage.this, Alerts.class);
+                startActivity(intent);
+            }
+        });
+
+        navPerfil.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(HomePage.this, Profile.class);
+                startActivity(intent);
+            }
+        });
+
         btnAlerts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this, Alerts.class);
+                startActivity(intent);
             }
         });
 

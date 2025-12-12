@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FireAlert">
         <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
             android:name=".Alerts"
             android:exported="false" />
         <activity
