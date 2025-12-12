@@ -9,12 +9,31 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.util.Log;
+
+
+import com.google.android.gms.tasks.OnCompleteListener;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 
 import com.google.android.material.snackbar.Snackbar;
 
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+    private TextView tokenTextView;
 
     private EditText etEmail;
     private EditText etPassword;
@@ -40,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configurar listeners
         setupListeners();
+        obtenerTokenFCM();
     }
 
     private void initViews() {
@@ -156,4 +176,52 @@ public class MainActivity extends AppCompatActivity {
         }
         btnLogin.setEnabled(!show);
     }
+
+    private void obtenerTokenFCM() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Obtener el nuevo token
+                        String token = task.getResult();
+
+                        // Log y Toast
+                        String msg = "Token: " + token;
+                        Log.d(TAG, msg);
+                        tokenTextView.setText(token);
+                        Toast.makeText(MainActivity.this, "Token obtenido (ver Logcat)", Toast.LENGTH_SHORT).show();
+
+                        // COPIA ESTE TOKEN DEL LOGCAT O PANTALLA PARA USARLO EN TU SERVER EXPRESS
+                    }
+                });
+    }
+
+    // Declarar el launcher para la solicitud de permisos
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // El usuario dio permiso
+                } else {
+                    Toast.makeText(this, "No podrás ver las notificaciones", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+    private void askNotificationPermission() {
+        // Esto solo es necesario para API level 33 (Tiramisu) o superior
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                // Ya tengo permiso
+            } else {
+                // Pedir permiso directamente
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+    }
+
 }
