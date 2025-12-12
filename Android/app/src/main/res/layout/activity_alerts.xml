@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".ConnectedDevices">
+    tools:context=".Alerts">
 
     <!-- ========== TOP BAR ========== -->
 
@@ -50,17 +50,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:fontFamily="sans-serif-medium"
-            android:text="DISPOSITIVOS"
+            android:text="ALERTAS"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/btnBack"
-            app:layout_constraintEnd_toStartOf="@id/btnAddDevice"
+            app:layout_constraintEnd_toStartOf="@id/btnFilter"
             app:layout_constraintStart_toEndOf="@id/btnBack"
             app:layout_constraintTop_toTopOf="@id/btnBack" />
 
-        <!-- Botón Agregar Dispositivo -->
+        <!-- Botón Filtrar -->
         <FrameLayout
-            android:id="@+id/btnAddDevice"
+            android:id="@+id/btnFilter"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/icon_button_background"
@@ -74,12 +74,85 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_filter"
                 app:tint="@android:color/white"
                 tools:ignore="ContentDescription" />
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========== FILTER TABS ========== -->
+
+    <HorizontalScrollView
+        android:id="@+id/filterTabsScroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <!-- Tab Todas -->
+            <TextView
+                android:id="@+id/tabAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_selected_background"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Todas"
+                android:textColor="#FF6B35"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <!-- Tab Peligro -->
+            <TextView
+                android:id="@+id/tabDanger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/tab_unselected_background"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Peligro"
+                android:textColor="#80FFFFFF"
+                android:textSize="13sp" />
+
+            <!-- Tab Advertencia -->
+            <TextView
+                android:id="@+id/tabWarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/tab_unselected_background"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Advertencia"
+                android:textColor="#80FFFFFF"
+                android:textSize="13sp" />
+
+            <!-- Tab Resueltas -->
+            <TextView
+                android:id="@+id/tabResolved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/tab_unselected_background"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Resueltas"
+                android:textColor="#80FFFFFF"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <!-- ========== MAIN CONTENT ========== -->
 
@@ -91,7 +164,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        app:layout_constraintTop_toBottomOf="@id/filterTabsScroll">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -122,7 +195,7 @@
                         android:id="@+id/tvSummaryTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Resumen de Dispositivos"
+                        android:text="Resumen de Alertas"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -137,7 +210,7 @@
                         android:orientation="horizontal"
                         app:layout_constraintTop_toBottomOf="@id/tvSummaryTitle">
 
-                        <!-- Dispositivos Activos -->
+                        <!-- Alertas Críticas -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -146,43 +219,10 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tvActiveCount"
+                                android:id="@+id/tvCriticalCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="3"
-                                android:textColor="#4CAF50"
-                                android:textSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Activos"
-                                android:textColor="#80FFFFFF"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <!-- Separador -->
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:background="#33FFFFFF" />
-
-                        <!-- Dispositivos Inactivos -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvInactiveCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1"
+                                android:text="2"
                                 android:textColor="#FF5252"
                                 android:textSize="32sp"
                                 android:textStyle="bold" />
@@ -191,7 +231,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="Inactivos"
+                                android:text="Críticas"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -203,7 +243,7 @@
                             android:layout_gravity="center_vertical"
                             android:background="#33FFFFFF" />
 
-                        <!-- Total -->
+                        <!-- Alertas Advertencia -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -212,11 +252,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tvTotalCount"
+                                android:id="@+id/tvWarningCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4"
-                                android:textColor="#FF6B35"
+                                android:text="5"
+                                android:textColor="#FFB74D"
                                 android:textSize="32sp"
                                 android:textStyle="bold" />
 
@@ -224,7 +264,40 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="Total"
+                                android:text="Advertencias"
+                                android:textColor="#80FFFFFF"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <!-- Separador -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="#33FFFFFF" />
+
+                        <!-- Alertas Resueltas -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvResolvedCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12"
+                                android:textColor="#4CAF50"
+                                android:textSize="32sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Resueltas"
                                 android:textColor="#80FFFFFF"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -234,24 +307,24 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- ========== DEVICES SECTION ========== -->
+            <!-- ========== TODAY SECTION ========== -->
 
             <TextView
-                android:id="@+id/tvDevicesLabel"
+                android:id="@+id/tvTodayLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:letterSpacing="0.1"
-                android:text="MIS DISPOSITIVOS"
+                android:text="HOY"
                 android:textColor="#FF6B35"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardSummary" />
 
-            <!-- Device Item 1 - Activo -->
+            <!-- Alert Item 1 - Crítica -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/deviceItem1"
+                android:id="@+id/alertItem1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -260,7 +333,7 @@
                 app:cardElevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvDevicesLabel">
+                app:layout_constraintTop_toBottomOf="@id/tvTodayLabel">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -268,303 +341,488 @@
                     android:padding="16dp">
 
                     <FrameLayout
-                        android:id="@+id/deviceIcon1"
+                        android:id="@+id/alertIcon1"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/quick_action_icon_bg"
+                        android:background="@drawable/alert_icon_bg_danger"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_sensor"
-                            app:tint="#FF6B35"
+                            android:src="@drawable/ic_fire"
+                            app:tint="#FF5252"
                             tools:ignore="ContentDescription" />
                     </FrameLayout>
 
                     <TextView
-                        android:id="@+id/tvDeviceName1"
+                        android:id="@+id/tvAlertTitle1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="14dp"
-                        android:text="Sensor de Humo - Sala"
+                        android:text="¡Incendio detectado!"
                         android:textColor="@android:color/white"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge1"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon1"
-                        app:layout_constraintTop_toTopOf="@id/deviceIcon1" />
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge1"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon1"
+                        app:layout_constraintTop_toTopOf="@id/alertIcon1" />
 
                     <TextView
-                        android:id="@+id/tvDeviceInfo1"
+                        android:id="@+id/tvAlertLocation1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="14dp"
                         android:layout_marginTop="4dp"
-                        android:text="Última conexión: Ahora"
+                        android:text="Sensor salon - Humo detectado"
                         android:textColor="#80FFFFFF"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge1"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon1"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeviceName1" />
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge1"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon1"
+                        app:layout_constraintTop_toBottomOf="@id/tvAlertTitle1" />
 
                     <TextView
-                        android:id="@+id/statusBadge1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/badge_success_background"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:text="Activo"
-                        android:textColor="#4CAF50"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Device Item 2 - Activo -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/deviceItem2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#1A1A1A"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/deviceItem1">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <FrameLayout
-                        android:id="@+id/deviceIcon2"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/quick_action_icon_bg"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_sensor"
-                            app:tint="#FF6B35"
-                            tools:ignore="ContentDescription" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvDeviceName2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:text="Sensor de Temperatura - Cocina"
-                        android:textColor="@android:color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge2"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon2"
-                        app:layout_constraintTop_toTopOf="@id/deviceIcon2" />
-
-                    <TextView
-                        android:id="@+id/tvDeviceInfo2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginTop="4dp"
-                        android:text="Última conexión: Hace 5 min"
-                        android:textColor="#80FFFFFF"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge2"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon2"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeviceName2" />
-
-                    <TextView
-                        android:id="@+id/statusBadge2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/badge_success_background"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:text="Activo"
-                        android:textColor="#4CAF50"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Device Item 3 - Activo -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/deviceItem3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#1A1A1A"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/deviceItem2">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <FrameLayout
-                        android:id="@+id/deviceIcon3"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/quick_action_icon_bg"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_camera"
-                            app:tint="#FF6B35"
-                            tools:ignore="ContentDescription" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvDeviceName3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:text="Cámara Térmica - Jardín"
-                        android:textColor="@android:color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge3"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon3"
-                        app:layout_constraintTop_toTopOf="@id/deviceIcon3" />
-
-                    <TextView
-                        android:id="@+id/tvDeviceInfo3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginTop="4dp"
-                        android:text="Última conexión: Hace 2 min"
-                        android:textColor="#80FFFFFF"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge3"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon3"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeviceName3" />
-
-                    <TextView
-                        android:id="@+id/statusBadge3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/badge_success_background"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:text="Activo"
-                        android:textColor="#4CAF50"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Device Item 4 - Inactivo -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/deviceItem4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#1A1A1A"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/deviceItem3">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <FrameLayout
-                        android:id="@+id/deviceIcon4"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/quick_action_icon_bg_inactive"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_sensor"
-                            app:tint="#666666"
-                            tools:ignore="ContentDescription" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/tvDeviceName4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:text="Sensor de Gas - Garaje"
-                        android:textColor="#80FFFFFF"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge4"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon4"
-                        app:layout_constraintTop_toTopOf="@id/deviceIcon4" />
-
-                    <TextView
-                        android:id="@+id/tvDeviceInfo4"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginTop="4dp"
-                        android:text="Última conexión: Hace 2 días"
-                        android:textColor="#4DFFFFFF"
-                        android:textSize="12sp"
-                        app:layout_constraintEnd_toStartOf="@id/statusBadge4"
-                        app:layout_constraintStart_toEndOf="@id/deviceIcon4"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeviceName4" />
-
-                    <TextView
-                        android:id="@+id/statusBadge4"
+                        android:id="@+id/alertBadge1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/badge_danger_background"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="4dp"
-                        android:text="Inactivo"
+                        android:text="Crítica"
                         android:textColor="#FF5252"
                         android:textSize="11sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAlertTime1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Hace 15 minutos"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@id/tvAlertTitle1"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon1" />
+
+                    <TextView
+                        android:id="@+id/tvAlertAction1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/action_button_background"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="6dp"
+                        android:text="Ver detalles"
+                        android:textColor="#FF6B35"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Alert Item 2 - Advertencia -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/alertItem2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#1A1A1A"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/alertItem1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:id="@+id/alertIcon2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/alert_icon_bg_warning"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_warning"
+                            app:tint="#FFB74D"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvAlertTitle2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="Temperatura elevada"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge2"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon2"
+                        app:layout_constraintTop_toTopOf="@id/alertIcon2" />
+
+                    <TextView
+                        android:id="@+id/tvAlertLocation2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Sensor Cocina - 45°C detectados"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge2"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon2"
+                        app:layout_constraintTop_toBottomOf="@id/tvAlertTitle2" />
+
+                    <TextView
+                        android:id="@+id/alertBadge2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/badge_warning_background"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="Advertencia"
+                        android:textColor="#FFB74D"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAlertTime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Hace 2 horas"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@id/tvAlertTitle2"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon2" />
+
+                    <TextView
+                        android:id="@+id/tvAlertAction2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/action_button_background"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="6dp"
+                        android:text="Ver detalles"
+                        android:textColor="#FF6B35"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ========== YESTERDAY SECTION ========== -->
+
+            <TextView
+                android:id="@+id/tvYesterdayLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:letterSpacing="0.1"
+                android:text="AYER"
+                android:textColor="#FF6B35"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/alertItem2" />
+
+            <!-- Alert Item 3 - Resuelta -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/alertItem3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="#1A1A1A"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvYesterdayLabel">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:id="@+id/alertIcon3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/alert_icon_bg_success"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="#4CAF50"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvAlertTitle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="Incendio controlado"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge3"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon3"
+                        app:layout_constraintTop_toTopOf="@id/alertIcon3" />
+
+                    <TextView
+                        android:id="@+id/tvAlertLocation3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Zona Sur - Área Industrial"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge3"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon3"
+                        app:layout_constraintTop_toBottomOf="@id/tvAlertTitle3" />
+
+                    <TextView
+                        android:id="@+id/alertBadge3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/badge_success_background"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="Resuelta"
+                        android:textColor="#4CAF50"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAlertTime3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Ayer, 14:30"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@id/tvAlertTitle3"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Alert Item 4 - Resuelta -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/alertItem4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#1A1A1A"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/alertItem3">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:id="@+id/alertIcon4"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/alert_icon_bg_success"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="#4CAF50"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvAlertTitle4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="Humo dispersado"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge4"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon4"
+                        app:layout_constraintTop_toTopOf="@id/alertIcon4" />
+
+                    <TextView
+                        android:id="@+id/tvAlertLocation4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Sensor Sala - Falsa alarma"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge4"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon4"
+                        app:layout_constraintTop_toBottomOf="@id/tvAlertTitle4" />
+
+                    <TextView
+                        android:id="@+id/alertBadge4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/badge_success_background"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="Resuelta"
+                        android:textColor="#4CAF50"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAlertTime4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Ayer, 09:15"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@id/tvAlertTitle4"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ========== LAST WEEK SECTION ========== -->
+
+            <TextView
+                android:id="@+id/tvLastWeekLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:letterSpacing="0.1"
+                android:text="ÚLTIMA SEMANA"
+                android:textColor="#FF6B35"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/alertItem4" />
+
+            <!-- Alert Item 5 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/alertItem5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="#1A1A1A"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLastWeekLabel">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:id="@+id/alertIcon5"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/alert_icon_bg_success"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="#4CAF50"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvAlertTitle5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:text="Mantenimiento completado"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge5"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon5"
+                        app:layout_constraintTop_toTopOf="@id/alertIcon5" />
+
+                    <TextView
+                        android:id="@+id/tvAlertLocation5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Todos los sensores verificados"
+                        android:textColor="#80FFFFFF"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/alertBadge5"
+                        app:layout_constraintStart_toEndOf="@id/alertIcon5"
+                        app:layout_constraintTop_toBottomOf="@id/tvAlertTitle5" />
+
+                    <TextView
+                        android:id="@+id/alertBadge5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/badge_info_background"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="Info"
+                        android:textColor="#64B5F6"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAlertTime5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Hace 5 días"
+                        android:textColor="#4DFFFFFF"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@id/tvAlertTitle5"
+                        app:layout_constraintTop_toBottomOf="@id/alertIcon5" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -620,35 +878,9 @@
                     android:textSize="11sp" />
             </LinearLayout>
 
-            <!-- Devices - Activo -->
+            <!-- Devices -->
             <LinearLayout
                 android:id="@+id/navDevices"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_devices"
-                    app:tint="#FF6B35"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/textDispositivos"
-                    android:textColor="#FF6B35"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <!-- Alerts -->
-            <LinearLayout
-                android:id="@+id/navAlerts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -662,7 +894,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_notifications"
+                    android:src="@drawable/ic_devices"
                     app:tint="#80FFFFFF"
                     tools:ignore="ContentDescription" />
 
@@ -670,8 +902,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@string/textAlertas"
+                    android:text="@string/textDispositivos"
                     android:textColor="#80FFFFFF"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Alerts - Activo -->
+            <LinearLayout
+                android:id="@+id/navAlerts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_notifications"
+                    app:tint="#FF6B35"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/textAlertas"
+                    android:textColor="#FF6B35"
                     android:textSize="11sp" />
             </LinearLayout>
 
